@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Edição de Condomínios</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:messages/>
+            <p:panelGrid columns="2">
+                <f:facet name="footer">
+                    <div align="center">
+                        <p:commandButton value="Cancelar"
+                                         action="#{controleCondominio.cancelar()}"
+                                         ajax="false" immediate="true"/>
+                        <p:commandButton value="salvar" icon="ui-icon-disk"
+                                         action="#{controleCondominio.salvar()}"
+                                         ajax="false"/>
+                        
+                    </div>
+                </f:facet>
+                <p:outputLabel value="id"/>
+                <p:inputText value="#{controleCondominio.objeto.id}" size="10"/>
+                <p:outputLabel value="Nome" for="txtNome"/>
+                <p:inputText value="#{controleCondominio.objeto.nome}" 
+                             id="txtNome" maxlength="50" placeholder="obrigatório"
+                             size="50"/>
+                <p:outputLabel value="Endereço" for="txtEndereco"/>
+                <p:inputText value="#{controleCondominio.objeto.endereco}" 
+                             id="txtEndereco" maxlength="50" placeholder="obrigatório"
+                             size="50"/>
+                <p:outputLabel value="Número" for="txtNumero"/>
+                <p:inputText value="#{controleCondominio.objeto.numero}" 
+                             id="txtNumero" maxlength="50" placeholder="obrigatório"
+                             size="50"/>
+                <p:outputLabel value="CEP" for="txtCep"/>
+                <p:inputText value="#{controleCondominio.objeto.cep}" 
+                             id="txtCep" maxlength="50" placeholder="obrigatório"
+                             size="9"/>
+                
+            </p:panelGrid>
+                
+        </h:form>
+    </h:body>
+</html>
+
