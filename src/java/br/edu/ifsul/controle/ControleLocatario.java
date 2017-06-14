@@ -19,11 +19,11 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name="controleLocatario")
 @SessionScoped
 public class ControleLocatario implements Serializable{
-    private LocatarioDao dao;
+    private LocatarioDao<Locatario> dao;
     private Locatario objeto;
 
     public ControleLocatario() {
-        dao = new LocatarioDao();
+        dao = new LocatarioDao<>();
     }
 
     public String listar(){
@@ -37,10 +37,16 @@ public class ControleLocatario implements Serializable{
     }
     
     public String salvar(){
-        if(dao.salvar(objeto)){
+        boolean persistiu;
+        if (objeto.getId() == null){
+            persistiu = dao.persist(objeto);
+        } else {
+            persistiu = dao.merge(objeto);
+        }
+        if (persistiu){
             Util.mensagemInformacao(dao.getMensagem());
             return "listar";
-        }else{
+        } else {
             Util.mensagemErro(dao.getMensagem());
             return "formulario";
         }

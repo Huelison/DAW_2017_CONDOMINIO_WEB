@@ -16,60 +16,67 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Huelison
  */
-@ManagedBean(name="controlePessoa")
+@ManagedBean(name = "controlePessoa")
 @SessionScoped
-public class ControlePessoa implements Serializable{
-    private PessoaDao dao;
+public class ControlePessoa implements Serializable {
+
+    private PessoaDao<Pessoa> dao;
     private Pessoa objeto;
 
     public ControlePessoa() {
-        dao = new PessoaDao();
+        dao = new PessoaDao<>();
     }
 
-    public String listar(){
+    public String listar() {
         return "/privado/pessoa/listar?faces-redirect=true";
     }
-    
-    public String novo(){
+
+    public String novo() {
         objeto = new Pessoa();
-        
+
         return "formulario";
     }
-    
-    public String salvar(){
-        if(dao.salvar(objeto)){
+
+    public String salvar() {
+        boolean persistiu;
+        if (objeto.getId() == null) {
+            persistiu = dao.persist(objeto);
+        } else {
+            persistiu = dao.merge(objeto);
+        }
+        if (persistiu) {
             Util.mensagemInformacao(dao.getMensagem());
             return "listar";
-        }else{
+        } else {
             Util.mensagemErro(dao.getMensagem());
             return "formulario";
         }
     }
-    
-    public String cancelar(){
+
+    public String cancelar() {
         return "listar";
     }
-    
-    public String editar(Integer id){
-        try{
+
+    public String editar(Integer id) {
+        try {
             objeto = dao.localizar(id);
             return "formulario";
-        }catch(Exception e){
-            Util.mensagemErro("Erro ao recuperar objeto"+Util.getMensagemErro(e));
+        } catch (Exception e) {
+            Util.mensagemErro("Erro ao recuperar objeto" + Util.getMensagemErro(e));
             return "listar";
         }
     }
-    
-    public void remover(Integer id){
+
+    public void remover(Integer id) {
         objeto = dao.localizar(id);
-        if(dao.remover(objeto)){
+        if (dao.remover(objeto)) {
             Util.mensagemInformacao(dao.getMensagem());
-        }else{
+        } else {
             Util.mensagemErro(dao.getMensagem());
         }
-            
+
     }
-    
+
     public PessoaDao getDao() {
         return dao;
     }
@@ -85,6 +92,5 @@ public class ControlePessoa implements Serializable{
     public void setObjeto(Pessoa objeto) {
         this.objeto = objeto;
     }
-    
-    
+
 }

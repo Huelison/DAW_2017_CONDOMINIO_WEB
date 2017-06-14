@@ -19,11 +19,11 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name="controleRecurso")
 @SessionScoped
 public class ControleRecurso implements Serializable{
-    private RecursoDao dao;
+    private RecursoDao<Recurso> dao;
     private Recurso objeto;
 
     public ControleRecurso() {
-        dao = new RecursoDao();
+        dao = new RecursoDao<>();
     }
 
     public String listar(){
@@ -37,10 +37,16 @@ public class ControleRecurso implements Serializable{
     }
     
     public String salvar(){
-        if(dao.salvar(objeto)){
+        boolean persistiu;
+        if (objeto.getId() == null){
+            persistiu = dao.persist(objeto);
+        } else {
+            persistiu = dao.merge(objeto);
+        }
+        if (persistiu){
             Util.mensagemInformacao(dao.getMensagem());
             return "listar";
-        }else{
+        } else {
             Util.mensagemErro(dao.getMensagem());
             return "formulario";
         }
