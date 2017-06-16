@@ -35,6 +35,7 @@ public class DAOGenerico<T> {
     }
 
     public List<T> getListaObjetos() {
+        System.out.println("--------------->>>>"+classePersistente.getSimpleName());
         String jpql = "from " + classePersistente.getSimpleName();
         String where = "";
         filtro = filtro.replaceAll("[';-]", "");

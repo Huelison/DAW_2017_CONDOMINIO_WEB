@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/DAW/DAW_2017_CONDOMINIO_WEB/src/java/br/edu/ifsul/dao/CondominioDao.java</file>
+            <file>file:/C:/DAW/DAW_2017_CONDOMINIO_WEB/src/java/br/edu/ifsul/controle/ControleRecurso.java</file>
             <file>file:/C:/DAW/DAW_2017_CONDOMINIO_WEB/web/privado/condominio/listar.xhtml</file>
+            <file>file:/C:/DAW/DAW_2017_CONDOMINIO_WEB/web/privado/pessoa/listar.xhtml</file>
+            <file>file:/C:/DAW/DAW_2017_CONDOMINIO_WEB/src/java/br/edu/ifsul/dao/RecursoDao.java</file>
+            <file>file:/C:/DAW/DAW_2017_CONDOMINIO_WEB/web/privado/recurso/listar.xhtml</file>
+            <file>file:/C:/DAW/DAW_2017_CONDOMINIO_WEB/src/java/br/edu/ifsul/controle/ControleCondominio.java</file>
         </group>
     </open-files>
 </project-private>

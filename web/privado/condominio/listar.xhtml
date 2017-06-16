@@ -9,12 +9,14 @@
         <ui:define name="titulo">Manutenção de Condominios</ui:define>
         <ui:define name="conteudo">
 
-            <h:form>
+            <h:form id="formListagem" prependId="false">
                 <p:growl/>
                 <p:messages/>
                 <p:commandButton value="Novo"
                                  action="#{controleCondominio.novo()}"
-                                 ajax="false"
+                                 update=":formEdicao"
+                                 process="@form"
+                                 oncomplete="PF('dlg').show();"
                                  icon="ui-icon-plus"/>
                 <div align="center">
                     <p:panelGrid columns="11">
@@ -69,12 +71,12 @@
                     <p:column headerText="Ações">
                         <p:commandButton action="#{controleCondominio.editar(obj.id)}"
                                          icon="ui-icon-pencil"
-                                         ajax="false"
-                                         title="editar"
-                                         />
+                                         oncomplete="PF('dlg').show();"
+                                         update=":formEdicao"
+                                         process="@form"/>
                         <p:commandButton action="#{controleCondominio.remover(obj.id)}"
                                          icon="ui-icon-trash"
-                                         ajax="false"
+                                         update="@form" process="@form"
                                          title="remover"
                                          onclick="if (!confirm('Confirma a exclusão?'))
                                                      return false"
@@ -83,6 +85,150 @@
                 </p:dataTable>
             </h:form>
 
+        </ui:define>
+        <ui:define name="dialogos">
+            <p:dialog header="Edição" widgetVar="dlg"
+                      resizable="false" modal="true" width="700" height="480">
+                <h:form id="formEdicao" prependId="false">
+                    <p:growl id="growl"/>
+                    <p:tabView id="tab">
+                        <p:tab title="Dados Principais">
+                            <div align="center">
+                                <p:panelGrid columns="2">
+                                    <f:facet name="footer">
+                                        <div align="center">
+                                            <p:commandButton actionListener="#{controleCondominio.salvar()}"
+                                                             update=":formListagem :formEdicao"
+                                                             value="Salvar"
+                                                             icon="ui-icon-disk"
+                                                             oncomplete="if (!args.validationFailed) {PF('dlg').hide();}"/>
+                                        </div>                            
+                                    </f:facet>
+                                    <p:outputLabel value="id"/>
+                                    <p:inputText value="#{controleCondominio.objeto.id}" size="10"/>
+                                    <p:outputLabel value="Nome" for="txtNome"/>
+                                    <p:inputText value="#{controleCondominio.objeto.nome}" 
+                                                 id="txtNome" maxlength="50" placeholder="obrigatório"
+                                                 size="50"/>
+                                    <p:outputLabel value="Endereço" for="txtEndereco"/>
+                                    <p:inputText value="#{controleCondominio.objeto.endereco}" 
+                                                 id="txtEndereco" maxlength="50" placeholder="obrigatório"
+                                                 size="50"/>
+                                    <p:outputLabel value="Número" for="txtNumero"/>
+                                    <p:inputText value="#{controleCondominio.objeto.numero}" 
+                                                 id="txtNumero" maxlength="50" placeholder="obrigatório"
+                                                 size="50"/>
+                                    <p:outputLabel value="CEP" for="txtCep"/>
+                                    <p:inputMask value="#{controleCondominio.objeto.cep}" 
+                                                 id="txtCep" maxlength="9" placeholder="obrigatório"
+                                                 mask="99999-999"
+                                                 size="9"/>
+                                </p:panelGrid>                              
+                            </div>                            
+                        </p:tab>
+                        <p:tab title="Unidade Condominal">
+                            <p:dataTable value="#{controleCondominio.objeto.unidades_condominais}"
+                                         var="unCon" rowIndexVar="idx" id="listaUnCondominais">
+                                <f:facet name="header">
+                                    <p:commandButton value="Nova Unidade Condominal"
+                                                     actionListener="#{controleCondominio.novoUnCondominal()}"
+                                                     update=":formUnCondominal"
+                                                     icon="ui-icon-plus"
+                                                     id="btnNovaUnCondominal"
+                                                     process="btnNovaUnCondominal"
+                                                     oncomplete="PF('dlgUnCondominal').show();"/>
+                                </f:facet>
+                                <p:column headerText="ID">
+                                    <p:outputLabel value="#{unCon.id}"/>
+                                </p:column>
+                                <p:column headerText="Número">
+                                    <p:outputLabel value="#{unCon.numero}"/>
+                                </p:column>
+                                <p:column headerText="Descrição">
+                                    <p:outputLabel value="#{unCon.descricao}"/>
+                                </p:column>  
+                                <p:column headerText="Área">
+                                    <p:outputLabel value="#{unCon.area}">
+                                        <f:convertNumber pattern="0.00"/>
+                                    </p:outputLabel>
+                                </p:column>    
+                                <p:column headerText="Número do quarto">
+                                    <p:outputLabel value="#{unCon.numeroQuarto}"/>
+                                </p:column>    
+                                <p:column headerText="Proprietário">
+                                    <p:outputLabel value="#{unCon.proprietario.nome}"/>
+                                </p:column>
+                                <p:column headerText="Ações">
+                                    <div align="center">
+                                        <p:commandButton id="btnAlterarUnCondominal"
+                                                         icon="ui-icon-pencil"
+                                                         actionListener="#{controleCondominio.alterarUnCondominal(idx)}"
+                                                         update=":formUnCondominal" process="btnAlterarUnCondominal"
+                                                         oncomplete="PF('dlgUnCondominal').show();"/>
+
+                                        <p:commandButton id="btnRemoverUnCondominal"
+                                                         icon="ui-icon-trash"
+                                                         update="listaUnCondominais :formEdicao:growl"
+                                                         process="btnRemoverUnCondominal"
+                                                         onclick="if (!confirm('Confirma a exclusão?'))
+                                                                     return false"
+                                                         actionListener="#{controleCondominio.removerUnCondominal(idx)}"/>                                                         
+                                    </div>
+                                </p:column>
+                            </p:dataTable>    
+                        </p:tab>
+                        <p:tab title="Desejos">
+
+                        </p:tab>
+                    </p:tabView>
+                </h:form>         
+            </p:dialog>
+            <p:dialog header="Edição de Unidade Condominal" widgetVar="dlgUnCondominal"
+                      resizable="false" modal="true">
+                <h:form id="formUnCondominal">
+                    <p:growl/>
+                    <p:panelGrid columns="2">
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                                 actionListener="#{controleCondominio.salvarUnCondominal()}"
+                                                 update=":formEdicao:tab:listaUnCondominais formUnCondominal"
+                                                 process="formUnCondominal"
+                                                 id="btnSalvarUnCondominal"
+                                                 oncomplete="if(!args.validationFailed){PF('dlgUnCondominal').hide();}"/>
+                            </div>
+                        </f:facet>  
+
+                        <p:outputLabel value="ID"/>
+                        <p:inputText value="#{controleCondominio.unCondominal.id}" readonly="true" size="5"/>                 
+
+                        <p:outputLabel value="Número" for="txtNumUnCondominal"/>
+                        <p:inputText id="txtNumUnCondominal"  size="10" placeholder="obrigatório"
+                                     value="#{controleCondominio.unCondominal.numero}"/>
+
+                        <p:outputLabel value="Proprietário" for="selectPropUnCondominal"/>
+                        <p:selectOneMenu value="#{controleCondominio.unCondominal.proprietario}" id="selectPropUnCondominal">
+                            <f:converter converterId="converterPessoa"/>
+                            <f:selectItem itemLabel="Selecione um registro" noSelectionOption="true"/>
+                            <f:selectItems value="#{controleCondominio.daoPessoa.listaTodos}"
+                                           var="p" itemLabel="#{p.nome}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Descrição" for="txtDescUnCondominal"/>
+                        <p:inputTextarea value="#{controleCondominio.unCondominal.descricao}" 
+                                         id="txtDescUnCondominal" placeholder="obrigatório"/>
+
+                        <p:outputLabel value="Área" for="txtAreaUnCondominal"/>
+                        <p:inputNumber id="txtAreaUnCondominal" value="#{controleCondominio.unCondominal.area}"
+                                       size="10" maxlength="12" decimalPlaces="0" thousandSeparator=""
+                                       placeholder="Obrigatório"/>
+
+                        <p:outputLabel value="Número do Quarto" for="txtNumQuartoUnCondominal"/>
+                        <p:inputText id="txtNumQuartoUnCondominal"  maxlength="12" size="12" placeholder="obrigatório"
+                                     value="#{controleCondominio.unCondominal.numeroQuarto}"/>
+                    </p:panelGrid>
+                </h:form>                        
+            </p:dialog>
         </ui:define>
     </ui:composition>
 </html>
