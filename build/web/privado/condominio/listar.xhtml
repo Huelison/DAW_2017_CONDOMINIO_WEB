@@ -18,12 +18,18 @@
                                  process="@form"
                                  oncomplete="PF('dlg').show();"
                                  icon="ui-icon-plus"/>
+                <p:commandButton action="#{controleCondominio.relatorio()}"
+                                 value="Imprimir" ajax="false"
+                                 onclick="this.form.target='_blank';"/>
                 <div align="center">
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem:"/>
                         <p:selectOneMenu id="ordem" value="#{controleCondominio.dao.ordem}">
                             <f:selectItem itemLabel="ID" itemValue="id"/>
-                            <f:selectItem itemLabel="Nome" itemValue="nome"/>              
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>     
+                            <f:selectItem itemLabel="Endereço" itemValue="endereco"/>     
+                            <f:selectItem itemLabel="Número" itemValue="numero"/>              
+                            <f:selectItem itemLabel="CEP" itemValue="cep"/>     
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>     
                         <p:outputLabel value="Filtro:"/>
@@ -177,22 +183,19 @@
                                 </p:column>
                             </p:dataTable>    
                         </p:tab>
-                        <p:tab title="Desejos">
-
-                        </p:tab>
                     </p:tabView>
                 </h:form>         
             </p:dialog>
             <p:dialog header="Edição de Unidade Condominal" widgetVar="dlgUnCondominal"
                       resizable="false" modal="true">
                 <h:form id="formUnCondominal">
-                    <p:growl/>
+                    <p:growl id="growlUC"/>
                     <p:panelGrid columns="2">
                         <f:facet name="footer">
                             <div align="center">
                                 <p:commandButton value="Salvar" icon="ui-icon-disk"
                                                  actionListener="#{controleCondominio.salvarUnCondominal()}"
-                                                 update=":formEdicao:tab:listaUnCondominais formUnCondominal"
+                                                 update=":formEdicao:tab:listaUnCondominais formUnCondominal :formUnCondominal:growlUC"
                                                  process="formUnCondominal"
                                                  id="btnSalvarUnCondominal"
                                                  oncomplete="if(!args.validationFailed){PF('dlgUnCondominal').hide();}"/>

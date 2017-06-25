@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2017-06-24T19:36:32 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subRelUnidadeCondominal" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="de702b90-216e-45c0-a0fa-757715194115">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="adapterCondominio.xml"/>
+	<style name="Style1" backcolor="#E6E6E6"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="area" class="java.lang.Double">
+		<fieldDescription><![CDATA[area]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[numero]]></fieldDescription>
+	</field>
+	<field name="proprietario" class="br.edu.ifsul.modelo.Pessoa">
+		<fieldDescription><![CDATA[proprietario]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="numeroQuarto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroQuarto]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="540" height="20" uuid="40e746c0-6c42-4cf8-a8be-79f37881adc7"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="60" height="20" uuid="32aff52a-1e06-4048-bc1e-b425676d1bd1"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[     ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="0" width="120" height="20" uuid="f8002bb3-8b54-4a77-9998-048c9ee920ea">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Descricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="120" height="20" uuid="b3a2d18c-f658-49f0-ba0e-1dbadcf4ea6a"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Proprietário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="80" height="20" uuid="0112b2e6-31ed-443a-8f71-4782e9fec00b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="90" height="20" uuid="bd7d8da8-b27e-4008-a694-e215f70c9bec"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Número do Quarto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="70" height="20" uuid="21039953-2827-4e5b-9b90-84cf767f7767"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Área]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement style="Style1" x="0" y="0" width="540" height="20" uuid="de044e85-146a-4874-9a15-3cbda1292f91">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="60" height="20" uuid="0a77ed47-8570-4bb2-a4e3-62503ad77cd4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="120" height="20" uuid="b3bd211b-1dde-487d-8ede-5c9ef92aadaf">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="120" height="20" uuid="e4539ff6-213d-4d8d-85d1-88280a6f69af"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{proprietario}.getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="80" height="20" uuid="2a940944-eed8-4941-bb41-35f8e832762a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="90" height="20" uuid="ad093c2a-aa32-4353-b47b-58542e0e6315"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroQuarto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="70" height="20" uuid="5e1ae1f7-854a-436b-ac53-c8cf4f4e688e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -11,7 +11,9 @@ import br.edu.ifsul.modelo.Condominio;
 import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.modelo.UnidadeCondominal;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -37,7 +39,12 @@ public class ControleCondominio implements Serializable {
     public String listar() {
         return "/privado/condominio/listar?faces-redirect=true";
     }
-
+    
+    public void relatorio() {
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("relCondominio", parametros,
+                dao.getListaTodos());
+    }
     public void novo() {
         objeto = new Condominio();
     }
