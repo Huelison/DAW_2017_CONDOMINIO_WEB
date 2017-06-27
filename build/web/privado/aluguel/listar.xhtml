@@ -48,6 +48,29 @@
                                          actionListener="#{controleCondominio.dao.ultimo()}"
                                          update="listagem"/>                        
                     </p:panelGrid>
+
+                    <p:panelGrid columns="8">
+                        <p:outputLabel value="Filtro no Inicio do contrato:"/>
+                        <p:selectBooleanCheckbox value="#{controleAluguel.dao.filtroInicioContrato}">
+                            
+                        </p:selectBooleanCheckbox>
+                        <p:outputLabel value="Filtro no Fim do contrato:"/>
+                        <p:selectBooleanCheckbox value="#{controleAluguel.dao.filtroFimContrato}">
+                            
+                        </p:selectBooleanCheckbox>
+                        <p:outputLabel value="Data inicial: "/>
+                        <p:calendar value="#{controleAluguel.dao.dataInicial}"
+                                    pattern="dd/MM/yyyy" mask="true" size="10"
+                                    locale="pt_BR" navigator="true">
+                            <f:converter converterId="converterCalendar"/>
+                        </p:calendar>
+                        <p:outputLabel value="Data Final: "/>
+                        <p:calendar value="#{controleAluguel.dao.dataFinal}"
+                                    pattern="dd/MM/yyyy" mask="true" size="10"
+                                    locale="pt_BR" navigator="true">
+                            <f:converter converterId="converterCalendar"/>
+                        </p:calendar>                        
+                    </p:panelGrid>
                 </div>
                 <p:dataTable value="#{controleAluguel.dao.listaObjetos}" id="listagem" var="obj">
                     <f:facet name="footer">

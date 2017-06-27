@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2017-06-24T20:43:02 -->
+<!-- 2017-06-27T19:26:51 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relCondominio" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="31d58e68-a3ab-4395-a4bd-1793c811ecf4">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="adapterCondominio.xml"/>
 	<queryString>
@@ -42,9 +42,9 @@
 		</band>
 	</title>
 	<detail>
-		<band height="90" splitType="Stretch">
+		<band height="150" splitType="Stretch">
 			<rectangle>
-				<reportElement stretchType="ContainerHeight" x="0" y="0" width="555" height="90" uuid="72e1e98b-4acb-40e9-9485-3bf2a2a6c1d4"/>
+				<reportElement stretchType="ContainerHeight" x="0" y="0" width="555" height="150" uuid="72e1e98b-4acb-40e9-9485-3bf2a2a6c1d4"/>
 			</rectangle>
 			<textField>
 				<reportElement x="68" y="0" width="120" height="20" uuid="9186c28e-6c83-45bf-92bb-df556a21776c"/>
@@ -117,10 +117,20 @@
 				<text><![CDATA[CEP]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="8" y="60" width="542" height="20" uuid="a1d04e14-6291-4bc5-a476-a4947e253f33"/>
+				<reportElement x="6" y="110" width="542" height="20" uuid="a1d04e14-6291-4bc5-a476-a4947e253f33"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource((java.util.List<br.edu.ifsul.modelo.UnidadeCondominal>)$F{unidades_condominais})]]></dataSourceExpression>
 				<subreportExpression><![CDATA["subRelUnidadeCondominal.jasper"]]></subreportExpression>
 			</subreport>
+			<rectangle>
+				<reportElement x="0" y="70" width="555" height="30" uuid="1f30c6b9-fff4-452c-a953-7939f590de61"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="70" width="555" height="30" uuid="f61744a7-36dd-4570-8b02-d55d3b554252"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Unidades Condominais]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<pageFooter>
